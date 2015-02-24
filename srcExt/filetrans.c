@@ -44,18 +44,24 @@ int main(int argv, char** args) {
 			printf("Size: %lu\n", size);
 				fseek(fl, 0L, SEEK_SET);
 				int progress = ((int)(size/50)), progbar = 0;
-				printf("Progress: ");
 				for(i = 0; i<size; i++)
 				{
-					if((!(i%progress))&&progbar<50)
+					for(int j = 0; j<10000; j++);
+					if((!(i%progress))&&progbar<=50)
 					{
-						printf("#");
+						printf("\rProgress: ");
+						for (int j = 0; j < progbar; j++)
+							printf("#");
+						for (int j = 0; j < 50-progbar; j++)
+							printf(" ");
+						printf(" %d%%", progbar*2);
+						fflush(stdout);
 						progbar++;
 					}
 					temp = getc(fl);
 					fwrite(&temp, 1, 1, disk);
 				}
-				printf(" 100%% complete\n");
+				printf("\n");
 				fseek(disk, a+12, SEEK_SET);
 				fwrite(&minisize, 2, 1, disk);
 				fwrite(&cluster, 2, 1, disk);
