@@ -193,6 +193,7 @@ _checkCommand:
 		call _strOut
 		add sp, 2
 		call _strOut
+		add sp, 2
 		jmp end_of_check
 
 	ch_sizeofos:
